@@ -86,16 +86,45 @@ export default function SmartEntryModal({ isOpen, onClose }: { isOpen: boolean, 
         onClose();
       }, 1500);
     } catch (error) {
-      console.error(error);
-      // Fallback
-      const pocketId = pockets[0]?.id || '1';
+      console.error("API error, falling back to local parsing:", error);
+      
+      // Fallback local regex parsing (For GitHub Pages / Static hosting)
+      const amountMatches = text.match(/(\d+(?:\.\d{1,2})?)/g);
+      let parsedAmount = 10;
+      if (amountMatches) {
+        parsedAmount = amountMatches.reduce((acc, curr) => acc + parseFloat(curr), 0);
+      }
+      
+      let parsedCategory = pockets[0]?.id || '1';
+      const lowerText = text.toLowerCase();
+      
+      if (lowerText.includes('pollo') || lowerText.includes('papa') || lowerText.includes('menú') || lowerText.includes('comida') || lowerText.includes('mercado') || lowerText.includes('bodega')) {
+        parsedCategory = pockets.find(p => p.name.toLowerCase().includes('comida'))?.id || parsedCategory;
+      } else if (lowerText.includes('luz') || lowerText.includes('agua') || lowerText.includes('internet') || lowerText.includes('recibo') || lowerText.includes('pasaje')) {
+        parsedCategory = pockets.find(p => p.name.toLowerCase().includes('servicio'))?.id || parsedCategory;
+      } else if (lowerText.includes('emergencia') || lowerText.includes('pastilla') || lowerText.includes('doctor')) {
+        parsedCategory = pockets.find(p => p.name.toLowerCase().includes('emergencia'))?.id || parsedCategory;
+      } else {
+        parsedCategory = pockets.find(p => p.name.toLowerCase().includes('gustito'))?.id || parsedCategory;
+      }
+      
+      let txType: 'expense'|'income' = 'expense';
+      if (lowerText.includes('sueldo') || lowerText.includes('ingreso') || lowerText.includes('venta') || lowerText.includes('pago me')) {
+        txType = 'income';
+      }
+
+      setAmount(parsedAmount);
+      setDescription(text);
+      setCategory(parsedCategory);
+      setTransactionType(txType);
+
       setMode('success');
       setTimeout(() => {
         addTransaction({
           title: text || 'Registro por Voz',
-          amount: 10,
-          category: pocketId,
-          type: 'expense'
+          amount: parsedAmount > 0 ? parsedAmount : 10,
+          category: parsedCategory,
+          type: txType
         });
         onClose();
       }, 1500);
