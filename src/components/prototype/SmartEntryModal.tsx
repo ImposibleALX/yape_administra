@@ -174,7 +174,7 @@ export default function SmartEntryModal({ isOpen, onClose }: { isOpen: boolean, 
             <div className="grid grid-cols-2 gap-4">
               <button 
                 onClick={() => setMode('voice')}
-                className="flex flex-col items-center gap-3 p-6 bg-white rounded-none border border-[#1A1A1A] hover:bg-[#F9F7F2] transition-colors"
+                className="flex flex-col items-center gap-3 p-6 bg-white rounded-none border border-[#1A1A1A] hover:bg-[#F9F7F2] active:scale-95 touch-manipulation transition-all"
               >
                 <div className="w-12 h-12 bg-[#1A1A1A] rounded-none flex items-center justify-center text-white">
                   <Mic className="w-6 h-6" />
@@ -185,7 +185,7 @@ export default function SmartEntryModal({ isOpen, onClose }: { isOpen: boolean, 
 
               <button 
                 onClick={handleSimulateCamera}
-                className="flex flex-col items-center gap-3 p-6 bg-white rounded-none border border-[#1A1A1A] hover:bg-[#F9F7F2] transition-colors"
+                className="flex flex-col items-center gap-3 p-6 bg-white rounded-none border border-[#1A1A1A] hover:bg-[#F9F7F2] active:scale-95 touch-manipulation transition-all"
               >
                 <div className="w-12 h-12 bg-[#1A1A1A] rounded-none flex items-center justify-center text-white">
                   <Camera className="w-6 h-6" />
@@ -197,7 +197,7 @@ export default function SmartEntryModal({ isOpen, onClose }: { isOpen: boolean, 
 
             <button 
               onClick={() => setMode('manual')}
-              className="w-full py-4 bg-[#1A1A1A] text-white border border-[#1A1A1A] rounded-none flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest font-bold hover:bg-[#7B2CBF] hover:border-[#7B2CBF] transition-colors"
+              className="w-full py-4 bg-[#1A1A1A] text-white border border-[#1A1A1A] rounded-none flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest font-bold hover:bg-[#7B2CBF] hover:border-[#7B2CBF] active:scale-95 touch-manipulation transition-all"
             >
               <Calculator className="w-4 h-4" /> Ingreso Manual
             </button>
@@ -223,7 +223,7 @@ export default function SmartEntryModal({ isOpen, onClose }: { isOpen: boolean, 
             <button 
               onClick={() => processVoiceCommand(voiceInput)}
               disabled={!voiceInput.trim() || isProcessing}
-              className="w-full py-4 bg-[#1A1A1A] text-white border border-[#1A1A1A] rounded-none flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest font-bold hover:bg-[#7B2CBF] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-4 bg-[#1A1A1A] text-white border border-[#1A1A1A] rounded-none flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest font-bold hover:bg-[#7B2CBF] active:scale-95 touch-manipulation transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isProcessing ? 'Procesando Inteligencia...' : 'Procesar Texto/Voz'}
             </button>
@@ -297,7 +297,7 @@ export default function SmartEntryModal({ isOpen, onClose }: { isOpen: boolean, 
 
             <button 
               type="submit"
-              className="w-full py-4 mt-4 bg-[#1A1A1A] text-white border border-[#1A1A1A] rounded-none flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest font-bold hover:bg-[#7B2CBF] transition-colors"
+              className="w-full py-4 mt-4 bg-[#1A1A1A] text-white border border-[#1A1A1A] rounded-none flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest font-bold hover:bg-[#7B2CBF] active:scale-95 touch-manipulation transition-all"
             >
               Guardar {transactionType === 'expense' ? 'Gasto' : 'Ingreso'}
             </button>

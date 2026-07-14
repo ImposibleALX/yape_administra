@@ -15,78 +15,72 @@ export function PrototypeView() {
   const [isEntryModalOpen, setIsEntryModalOpen] = useState(false);
 
   return (
-    <div className="flex justify-center items-center p-4 min-h-[calc(100vh-80px)] bg-[#FCFAF7]">
-      {/* Mobile Device Frame */}
-      <div className="relative w-full max-w-[400px] h-[800px] bg-[#FCFAF7] rounded-sm shadow-xl overflow-hidden border-[2px] border-[#1A1A1A] flex flex-col">
-        
-        {/* Status Bar Mock */}
-        <div className="h-7 w-full bg-transparent absolute top-0 z-50 flex justify-between items-center px-6 pt-2">
-          <span className="text-[11px] font-bold text-[#1A1A1A]">9:41</span>
-          <div className="flex gap-1.5">
-             <div className="w-3.5 h-3.5 bg-[#1A1A1A] rounded-full opacity-80 scale-50"></div>
-             <div className="w-3.5 h-3.5 bg-[#1A1A1A] rounded-full opacity-80 scale-50"></div>
-             <div className="w-4 h-3 bg-[#1A1A1A] rounded-sm opacity-80 scale-75"></div>
-          </div>
+    <div className="relative w-full h-full bg-[#FCFAF7] flex flex-col overflow-hidden">
+      
+      {/* Status Bar Mock (only visible on desktop simulator) */}
+      <div className="hidden md:flex h-7 w-full bg-transparent absolute top-0 z-50 justify-between items-center px-6 pt-2">
+        <span className="text-[11px] font-bold text-[#1A1A1A]">9:41</span>
+        <div className="flex gap-1.5">
+           <div className="w-3.5 h-3.5 bg-[#1A1A1A] rounded-full opacity-80 scale-50"></div>
+           <div className="w-3.5 h-3.5 bg-[#1A1A1A] rounded-full opacity-80 scale-50"></div>
+           <div className="w-4 h-3 bg-[#1A1A1A] rounded-sm opacity-80 scale-75"></div>
         </div>
-
-        {/* Dynamic Island Mock - Replaced with minimal bar for editorial look */}
-        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-6 border-b border-[#1A1A1A] z-50"></div>
-
-        {/* Main Content Area */}
-        <div className="flex-1 bg-[#FCFAF7] overflow-y-auto no-scrollbar pt-12 relative flex flex-col">
-          {activeScreen === 'home' && <DashboardScreen />}
-          {activeScreen === 'analytics' && <AnalyticsScreen />}
-          {activeScreen === 'payments' && <PaymentsScreen />}
-          {activeScreen === 'ai' && <AIScreen />}
-        </div>
-
-        <SmartEntryModal 
-          isOpen={isEntryModalOpen} 
-          onClose={() => setIsEntryModalOpen(false)} 
-        />
-
-        {/* Bottom Navigation Bar */}
-        <div className="w-full h-20 bg-[#FCFAF7] border-t border-[#E5E5E5] flex justify-between items-center px-6 pb-2 z-40 relative">
-          <NavItem 
-            icon={<Home />} 
-            label="Inicio" 
-            isActive={activeScreen === 'home'} 
-            onClick={() => setActiveScreen('home')} 
-          />
-          <NavItem 
-            icon={<PieChart />} 
-            label="Gastos" 
-            isActive={activeScreen === 'analytics'} 
-            onClick={() => setActiveScreen('analytics')} 
-          />
-          
-          {/* FAB - Smart Entry */}
-          <div className="relative -top-5">
-            <button 
-              onClick={() => setIsEntryModalOpen(true)}
-              className="w-14 h-14 bg-[#1A1A1A] flex items-center justify-center text-white border border-[#1A1A1A] hover:bg-[#7B2CBF] hover:border-[#7B2CBF] transition-colors"
-            >
-              <Plus className="w-6 h-6" />
-            </button>
-          </div>
-
-          <NavItem 
-            icon={<Receipt />} 
-            label="Pagos" 
-            isActive={activeScreen === 'payments'} 
-            onClick={() => setActiveScreen('payments')} 
-          />
-          <NavItem 
-            icon={<Bot />} 
-            label="Asesor IA" 
-            isActive={activeScreen === 'ai'} 
-            onClick={() => setActiveScreen('ai')} 
-          />
-        </div>
-
-        {/* Home Indicator */}
-        <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-32 h-1 bg-[#1A1A1A] rounded-none z-50"></div>
       </div>
+
+      {/* Main Content Area */}
+      <div className="flex-1 bg-[#FCFAF7] overflow-y-auto no-scrollbar pt-2 md:pt-12 pb-4 relative flex flex-col">
+        {activeScreen === 'home' && <DashboardScreen />}
+        {activeScreen === 'analytics' && <AnalyticsScreen />}
+        {activeScreen === 'payments' && <PaymentsScreen />}
+        {activeScreen === 'ai' && <AIScreen />}
+      </div>
+
+      <SmartEntryModal 
+        isOpen={isEntryModalOpen} 
+        onClose={() => setIsEntryModalOpen(false)} 
+      />
+
+      {/* Bottom Navigation Bar */}
+      <div className="w-full bg-[#FCFAF7] border-t border-[#E5E5E5] flex justify-between items-center px-6 pb-6 md:pb-6 pt-3 z-40 relative shrink-0 shadow-[0_-4px_20px_rgba(0,0,0,0.02)]">
+        <NavItem 
+          icon={<Home />} 
+          label="Inicio" 
+          isActive={activeScreen === 'home'} 
+          onClick={() => setActiveScreen('home')} 
+        />
+        <NavItem 
+          icon={<PieChart />} 
+          label="Gastos" 
+          isActive={activeScreen === 'analytics'} 
+          onClick={() => setActiveScreen('analytics')} 
+        />
+        
+        {/* FAB - Smart Entry */}
+        <div className="relative -top-6">
+          <button 
+            onClick={() => setIsEntryModalOpen(true)}
+            className="w-14 h-14 rounded-full bg-[#1A1A1A] flex items-center justify-center text-white border-2 border-white shadow-xl hover:bg-[#7B2CBF] transition-colors active:scale-95 touch-manipulation"
+          >
+            <Plus className="w-7 h-7" />
+          </button>
+        </div>
+
+        <NavItem 
+          icon={<Receipt />} 
+          label="Pagos" 
+          isActive={activeScreen === 'payments'} 
+          onClick={() => setActiveScreen('payments')} 
+        />
+        <NavItem 
+          icon={<Bot />} 
+          label="IA" 
+          isActive={activeScreen === 'ai'} 
+          onClick={() => setActiveScreen('ai')} 
+        />
+      </div>
+
+      {/* Home Indicator */}
+      <div className="hidden md:block absolute bottom-1.5 left-1/2 -translate-x-1/2 w-32 h-1 bg-[#1A1A1A] rounded-full z-50"></div>
     </div>
   );
 }
@@ -96,14 +90,14 @@ function NavItem({ icon, label, isActive, onClick }: { icon: React.ReactNode, la
     <button 
       onClick={onClick}
       className={cn(
-        "flex flex-col items-center gap-1 min-w-[50px] transition-colors",
+        "flex flex-col items-center gap-1 min-w-[50px] transition-colors active:scale-95 touch-manipulation",
         isActive ? "text-[#7B2CBF]" : "text-[#1A1A1A]/40 hover:text-[#1A1A1A]"
       )}
     >
-      <div className={cn("[&>svg]:w-5 [&>svg]:h-5")}>
+      <div className={cn("[&>svg]:w-[22px] [&>svg]:h-[22px]")}>
         {icon}
       </div>
-      <span className="text-[9px] uppercase tracking-widest font-bold mt-1">{label}</span>
+      <span className="text-[10px] uppercase tracking-widest font-bold mt-1">{label}</span>
     </button>
   );
 }
